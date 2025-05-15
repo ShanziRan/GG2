@@ -1,1 +1,1 @@
-# GG2
+resources
