@@ -16,5 +16,6 @@ def ct_calibrate(photons, material, sinogram, scale):
 	n = sinogram.shape[1]
 
 	# perform calibration
+	
 
 	return sinogram

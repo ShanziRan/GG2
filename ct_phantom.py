@@ -17,10 +17,11 @@ def phantom(ellipses, n):
 	xax = np.linspace(-1.0, 1.0, n, endpoint=True)
 	xg = np.matlib.repmat(xax, n, 1) # x coordinates, the y coordinates are rot90(xg)
 
+	# ellipse = [amplitude, a, b, x0, y0, phi]
 	for ellipse in ellipses:
 		asq = ellipse[1] ** 2       # a^2
 		bsq = ellipse[2] ** 2       # b^2
-		phi = ellipse[5] * math.pi / 180  # rotation angle in radians
+		phi = ellipse[5] * math.pi / 180  # rotation angle in radians (degrees to radians)
 		x0 = ellipse[3]          # x offset
 		y0 = ellipse[4]          # y offset
 		a = ellipse[0]           # Amplitude change for this ellipse
@@ -28,10 +29,10 @@ def phantom(ellipses, n):
 		y_center = np.rot90(xg) - y0
 		cosp = math.cos(phi)
 		sinp = math.sin(phi)
-		values = (((x_center * cosp + y_center * sinp) ** 2) / asq + ((y_center *cosp - x_center * sinp) ** 2) / bsq)
+		values = (((x_center * cosp + y_center * sinp) ** 2) / asq + ((y_center *cosp - x_center * sinp) ** 2) / bsq) # normalised ellipse equation
 
 		for index, element in np.ndenumerate(values):
-				if element <= 1:
+				if element <= 1: # inside the ellipse
 					phantom_instance[index] = phantom_instance[index] + a
 
 	return phantom_instance
@@ -66,6 +67,7 @@ def ct_phantom(names, n, type, metal=None):
 	air = names.index('Air')
 	adipose =  names.index('Adipose')
 	bone =  names.index('Bone')
+	# Default materials by phantom types
 	if type < 3:
 		if metal is None:
 			tissue = names.index('Soft Tissue')
@@ -80,19 +82,19 @@ def ct_phantom(names, n, type, metal=None):
 
 	if type == 1:
 
-		# simple circle for looking at calibration
+		# simple circle for looking at calibration (centred at image centre)
 		t = [1, 0.8, 0.8, 0.0, 0.0, 0]
 		x = phantom(t, n)
 
 		for index, value in np.ndenumerate(x):
-			if value >= 1:
+			if value >= 1: # inside the ellipse
 				x[index] = tissue
 
 	elif type == 2:
 		
 		# impulse for looking at resolution
 		x = np.zeros((n, n))
-		x[int(n / 2)][int(n / 2)] = tissue
+		x[int(n / 2)][int(n / 2)] = tissue # point impulse at centre
 		
 	elif type == 8:
 
