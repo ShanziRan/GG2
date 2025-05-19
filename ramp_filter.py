@@ -1,6 +1,7 @@
 import math
 import numpy as np
 import numpy.matlib
+from scipy.fftpack import fft, ifft, fftfreq
 
 def ramp_filter(sinogram, scale, alpha=0.001):
 	""" Ram-Lak filter with raised-cosine for CT reconstruction
@@ -19,7 +20,22 @@ def ramp_filter(sinogram, scale, alpha=0.001):
 	m = np.ceil(np.log(2*n-1) / np.log(2))
 	m = int(2 ** m)
 
+	# create the raised-cosine combined ram-lak filter with the set length
+	freqs = fftfreq(m)
+	# ramlak = np.abs(freqs) * (np.cos((freqs * np.pi) / (2 * freqs.max()))) ** alpha / 2 * np.pi
+	omega_max = 0.5
+	ramlak = np.abs(freqs) * (np.cos((np.pi * freqs) / (2 * omega_max))) ** alpha/ 2 * np.pi
+
 	# apply filter to all angles
 	print('Ramp filtering')
-	
-	return sinogram
+
+	filtered = np.zeros((angles, n))
+	for i in range(angles):
+		proj_fft = fft(sinogram[i], m)
+		proj_fft = proj_fft * ramlak
+		proj_filtered = np.real(ifft(proj_fft))
+
+        # Truncate back to original length
+		filtered[i] = proj_filtered[:n]
+
+	return filtered
