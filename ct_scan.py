@@ -34,7 +34,7 @@ def ct_scan(photons, material, phantom, scale, angles, mas=10000):
 			material_phantom.append(z0)
 
 	# scan one angle at a time
-	scan = np.zeros((angles, n))
+	scan = np.zeros((angles, n)) # per angle per phantom
 	for angle in range(angles):
 
 		sys.stdout.write("Scanning angle: %d   \r" % (angle + 1) )
@@ -48,11 +48,11 @@ def ct_scan(photons, material, phantom, scale, angles, mas=10000):
 		depth = np.zeros((len(material.coeffs), n))
 
 		for index, m in enumerate(materials):
-			interpolated = scipy.ndimage.map_coordinates(material_phantom[index], [y0, x0], order=1, mode='constant', cval=0, prefilter=False)
+			interpolated = scipy.ndimage.map_coordinates(material_phantom[index], [y0, x0], order=1, mode='constant', cval=0, prefilter=False) # order=1 linear interpolation
 			depth[m] = np.sum(interpolated, axis=0)
 
 		# only necessary for more complex forms of interpolation above
-		depth = np.clip(depth, 0, None)
+		depth = np.clip(depth, 0, None) # avoid negative depth by overshooting
 
 		# ensure an appropriate amount of air is included in the calculation
 		# to account for the scan being circular, but the phantom being square
