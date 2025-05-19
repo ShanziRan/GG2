@@ -1,6 +1,7 @@
 import numpy as np
 import scipy
 from scipy import interpolate
+from attenuate import attenuate
 
 def ct_calibrate(photons, material, sinogram, scale):
 
@@ -16,6 +17,15 @@ def ct_calibrate(photons, material, sinogram, scale):
 	n = sinogram.shape[1]
 
 	# perform calibration
-	
+	# retrieve air coefficients
+	air = material.name.index('Air')
+	air_coeff = material.coeffs[air]
 
+	depth = 2 * n * scale # for the fixed distance between source and detector
+
+	# calculate air attenuated energy (calibration) for each energy level
+	source_total = attenuate(photons, air_coeff, depth)
+
+	# normalise the energy to total attenuation coefficient
+	sinogram = - np.log(sinogram / sum(source_total))
 	return sinogram
