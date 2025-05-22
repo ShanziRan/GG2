@@ -1,9 +1,9 @@
-from ct_scan import ct_scan
-from ct_calibrate import ct_calibrate
-from ct_lib import draw
-from ramp_filter import ramp_filter
-from back_project import back_project
-from hu import hu
+from ct_scan import *
+from ct_calibrate import *
+from ct_lib import *
+from ramp_filter import *
+from back_project import *
+from hu import *
 
 def scan_and_reconstruct(photons, material, phantom, scale, angles, mas=10000, alpha=0.001):
 
