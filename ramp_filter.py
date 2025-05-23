@@ -22,10 +22,9 @@ def ramp_filter(sinogram, scale, alpha=0.001):
 
 	# create the raised-cosine combined ram-lak filter with the set length
 	freqs = fftfreq(m, d=scale)
-	# ramlak = np.abs(freqs) * ((np.cos((np.pi * freqs) / (2 * np.abs(np.max(freqs))))) ** alpha)
-	ramlak = np.abs(freqs)
+	k = 0.5 * np.pi * np.abs(np.max(freqs))
+	ramlak = np.abs(freqs) * (np.abs(np.cos(freqs * k * 2 * np.pi)) ** alpha)
 	ramlak[0] = ramlak[1]/6
-
 
 	# apply filter to all angles
 	print('Ramp filtering')

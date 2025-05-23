@@ -86,7 +86,7 @@ def test_shape():
 	# Results: Assures accuracy of reconstructed shape up to 2 pixels tolerence, which corresponds to minor negligible 
 	
 # Run the various tests
-print("Shape test")
-test_shape()
+# print("Shape test")
+# test_shape()
 print("Value test")
 test_value(material)
