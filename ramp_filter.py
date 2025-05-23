@@ -22,7 +22,8 @@ def ramp_filter(sinogram, scale, alpha=0.001):
 
 	# create the raised-cosine combined ram-lak filter with the set length
 	freqs = fftfreq(m, d=scale)
-	ramlak = np.abs(freqs) * ((np.cos((np.pi * freqs) / (2 * freqs[-1]))) ** alpha)
+	# ramlak = np.abs(freqs) * ((np.cos((np.pi * freqs) / (2 * np.abs(np.max(freqs))))) ** alpha)
+	ramlak = np.abs(freqs)
 	ramlak[0] = ramlak[1]/6
 
 
