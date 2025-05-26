@@ -1,31 +1,38 @@
 import numpy as np
-import scipy
-from scipy import interpolate
+from ct_detect import ct_detect
+from scipy.interpolate import interp1d  # You can remove this if not needed elsewhere
 from attenuate import attenuate
 
 def ct_calibrate(photons, material, sinogram, scale):
+    """ct_calibrate: Convert CT detections to linearised attenuation using polynomial fit."""
+    
+    # Step 1: Air-based normalisation
+    n = sinogram.shape[1]
+    air_idx = material.name.index('Air')
+    air_coeff = material.coeffs[air_idx]
+    depth = 2 * n * scale  # fixed source-detector distance
+    source_total = attenuate(photons, air_coeff, depth)
+    sinogram = -np.log(sinogram / np.sum(source_total))  # log-normalise
 
-	""" ct_calibrate convert CT detections to linearised attenuation
-	sinogram = ct_calibrate(photons, material, sinogram, scale) takes the CT detection sinogram
-	in x (angles x samples) and returns a linear attenuation sinogram
-	(angles x samples). photons is the source energy distribution, material is the
-	material structure containing names, linear attenuation coefficients and
-	energies in mev, and scale is the size of each pixel in x, in cm."""
+    # Step 2: Water-based beam hardening correction using polynomial fit
+    depths = np.linspace(0, depth, 200)
+    original_energy = np.tile(photons[:, np.newaxis], (1, 200))
 
-	# Get dimensions and work out detection for just air of twice the side
-	# length (has to be the same as in ct_scan.py)
-	n = sinogram.shape[1]
+    # Simulate attenuation through water
+    water_idx = material.name.index('Water')
+    water_coeff = material.coeffs[water_idx]
+    residual_energy = attenuate(original_energy, water_coeff, depths)  # shape (len(photons), len(depths))
 
-	# perform calibration
-	# retrieve air coefficients
-	air = material.name.index('Air')
-	air_coeff = material.coeffs[air]
+    # Compute total transmitted energy for each depth
+    I_tot = np.sum(residual_energy, axis=0)  # shape (200,)
+    I0 = np.sum(photons)  # scalar
+    p_w = -np.log(I_tot / I0)  # shape (200,)
 
-	depth = 2 * n * scale # for the fixed distance between source and detector
+    # Fit a polynomial: depth = f(p_w)
+    deg = 10  # You can change degree based on accuracy-vs-stability tradeoff
+    coeffs = np.polyfit(p_w, depths, deg)
 
-	# calculate air attenuated energy (calibration) for each energy level
-	source_total = attenuate(photons, air_coeff, depth)
+    # Evaluate the polynomial to get estimated depth for each sinogram value
+    sinogram = np.polyval(coeffs, sinogram)
 
-	# normalise the energy to total attenuation coefficient
-	sinogram = - np.log(sinogram / sum(source_total))
-	return sinogram
+    return sinogram
