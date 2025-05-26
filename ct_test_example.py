@@ -19,7 +19,7 @@ source = Source()
 
 # Two separate unit tests to confirm that value and geometry of reconstrucion from simulated CT scan agrees with expected result within acceptable tolerance.
 
-def test_value(material):
+def test_value():
 	# Check whether reconstructed linear attenuation coefficient corresponds to standard value given in the data
 	# by comparing mean reconstructed value at the middle portion of the shape
 
@@ -84,9 +84,95 @@ def test_shape():
 			assert np.isclose(close_count, expected_count, atol=tolerances[j])
 			
 	# Results: Assures accuracy of reconstructed shape up to 2 pixels tolerence, which corresponds to minor negligible 
-	
-# Run the various tests
-# print("Shape test")
-# test_shape()
-print("Value test")
-test_value(material)
+
+def test_noise_mas():
+	p = ct_phantom(material.name, 256, 4)
+	s = fake_source(source.mev, 0.1, material.coeff('Aluminium'), 2)
+	mas_values = [50]
+	for mas in mas_values:
+		print(f"Testing with mas = {mas}")
+		y = scan_and_reconstruct(
+			s, 
+			material, 
+			p, 
+			scale=0.1, 
+			angles=256, 
+			mas=mas,
+			alpha=0.0001, 
+			background_mean=0.001 * s.max())
+
+		save_draw(y, 'results', f'test_noise_mas_{mas}', caxis=[0., np.max(y)])
+		print(f"Pic saved for mas = {mas}!")
+
+def test_noise_scale():
+	p = ct_phantom(material.name, 256, 4)
+	s = fake_source(source.mev, 0.1, material.coeff('Aluminium'), 2)
+	scales = [0.05]
+	for scale in scales:
+		print(f"Testing with scale = {scale}")
+		y = scan_and_reconstruct(
+			s, 
+			material, 
+			p, 
+			scale=scale, 
+			angles=256, 
+			mas=1000, # default to low mas for clearer noise effect
+			alpha=0.0001, 
+			background_mean=0.001 * s.max())
+
+		save_draw(y, 'results', f'test_noise_scale_005', caxis=[0., np.max(y)])
+		print(f"Pic saved for scale = {scale}!")
+
+def test_noise():
+	p = ct_phantom(material.name, 256, 4)
+	s = fake_source(source.mev, 0.1, material.coeff('Aluminium'), 2)
+
+	mas = 100
+	scale = 0.1
+	angles = 256
+	background_mean = 0.001 * s.max()
+	scatter_fraction = 0.3
+
+	print("Testing with noise")
+	y = scan_and_reconstruct(
+		s, 
+		material, 
+		p, 
+		scale=scale, 
+		angles=angles, 
+		mas=mas,
+		alpha=0.0001, 
+		background_mean=background_mean, 
+		scatter_fraction=scatter_fraction)
+
+	save_draw(y, 'results', 'test_noise_background_scatter', caxis=[0., np.max(y)])
+	print("Pic saved for noise test!")
+
+def test_noise_ramlak():
+	p = ct_phantom(material.name, 256, 4)
+	s = fake_source(source.mev, 0.1, material.coeff('Aluminium'), 2)
+
+	mas = 50
+	scale = 0.1
+	angles = 256
+	background_mean = 0.001 * s.max()
+	scatter_fraction = 0.3
+
+	print("Testing with noise and Ram-Lak filter")
+	y = scan_and_reconstruct(
+		s, 
+		material, 
+		p, 
+		scale=scale, 
+		angles=angles, 
+		mas=mas,
+		alpha=0.07, 
+		background_mean=background_mean, 
+		scatter_fraction=scatter_fraction)
+
+	save_draw(y, 'results', 'test_noise_ramlak', caxis=[0., np.max(y)])
+	print("Pic saved for noise test with Ram-Lak filter!")
+
+test_noise_ramlak()
+
+

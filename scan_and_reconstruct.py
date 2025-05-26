@@ -5,7 +5,7 @@ from ramp_filter import *
 from back_project import *
 from hu import *
 
-def scan_and_reconstruct(photons, material, phantom, scale, angles, mas=10000, alpha=0.001):
+def scan_and_reconstruct(photons, material, phantom, scale, angles, mas=100, alpha=0.0001, background_mean=50000, scatter_fraction=0.3):
 
 	""" Simulation of the CT scanning process
 		reconstruction = scan_and_reconstruct(photons, material, phantom, scale, angles, mas, alpha)
@@ -15,14 +15,24 @@ def scan_and_reconstruct(photons, material, phantom, scale, angles, mas=10000, a
 		alpha for filtering. The output reconstruction is the same size as phantom."""
 
 
-	# convert source (photons per (mas, cm^2)) to photons
+	# convert source (photons per (mas, cm^2)) to photons (function covered in ct_detect)
 	photons = photons * mas * scale ** 2
+	p_noisy = np.zeros_like(photons)
+
+	# statistical noise (Poisson) for source photons
+	# for large mean values, the Poisson distribution can be approximated by a Gaussian
+	normal_mask = photons > 1000
+	p_noisy[normal_mask] = np.random.normal(photons[normal_mask], np.sqrt(photons[normal_mask]))
+
+	# for small mean values, the Poisson distribution is used directly
+	poisson_mask = (photons > 0) & (photons <= 1000)
+	p_noisy[poisson_mask] = np.random.poisson(photons[poisson_mask])
 
 	# create sinogram from phantom data, with received detector values
-	sinogram = ct_scan(photons, material, phantom, scale, angles, mas)
+	sinogram = ct_scan(p_noisy, material, phantom, scale, angles, background_mean, scatter_fraction)
 
 	# convert detector values into calibrated attenuation values
-	sinogram = ct_calibrate(photons, material, sinogram, scale)
+	sinogram = ct_calibrate(p_noisy, material, sinogram, scale)
 
 	# Ram-Lak
 	sinogram = ramp_filter(sinogram, scale, alpha)
