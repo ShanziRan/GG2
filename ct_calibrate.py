@@ -1,6 +1,4 @@
 import numpy as np
-from ct_detect import ct_detect
-from scipy.interpolate import interp1d  # You can remove this if not needed elsewhere
 from attenuate import attenuate
 
 def ct_calibrate(photons, material, sinogram, scale):
@@ -21,7 +19,7 @@ def ct_calibrate(photons, material, sinogram, scale):
     # Simulate attenuation through water
     water_idx = material.name.index('Water')
     water_coeff = material.coeffs[water_idx]
-    residual_energy = attenuate(original_energy, water_coeff, depths)  # shape (len(photons), len(depths))
+    residual_energy = attenuate(original_energy, water_coeff, depths) 
 
     # Compute total transmitted energy for each depth
     I_tot = np.sum(residual_energy, axis=0)  # shape (200,)
@@ -29,7 +27,7 @@ def ct_calibrate(photons, material, sinogram, scale):
     p_w = -np.log(I_tot / I0)  # shape (200,)
 
     # Fit a polynomial: depth = f(p_w)
-    deg = 10  # You can change degree based on accuracy-vs-stability tradeoff
+    deg = 10  # change degree based on accuracy-vs-stability tradeoff
     coeffs = np.polyfit(p_w, depths, deg)
 
     # Evaluate the polynomial to get estimated depth for each sinogram value
