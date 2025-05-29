@@ -2,6 +2,7 @@ import numpy as np
 import scipy
 from scipy import interpolate
 from attenuate import attenuate
+from ct_detect import ct_detect
 
 def ct_calibrate(photons, material, sinogram, scale):
 

@@ -54,30 +54,30 @@ def ct_detect(p, material, coeffs, depth, background_mean=0, scatter_fraction=0.
 	for m in range(materials):
 		detector_photons = attenuate(detector_photons, coeffs[m], depth[m])
 		
-		s = None
-		# Add scatter noise to attenuated intensity for each material and each depth sample
-		if m == material.name.index("Titanium"):
-			s = 8000  # High scatter for Titanium
-		elif m == material.name.index("Bone"):
-			s = 5000
-		elif m == material.name.index("Soft Tissue"):
-			s = 1
-		elif m == material.name.index("Adipose"):
-			s = 1
+		# s = None
+		# # Add scatter noise to attenuated intensity for each material and each depth sample
+		# if m == material.name.index("Titanium"):
+		# 	s = 8000  # High scatter for Titanium
+		# elif m == material.name.index("Bone"):
+		# 	s = 5000
+		# elif m == material.name.index("Soft Tissue"):
+		# 	s = 1
+		# elif m == material.name.index("Adipose"):
+		# 	s = 1
 		
-		if s is not None:
-			mean = np.abs(detector_photons) / s
-			if mean.all() < 1000:
-				detector_photons += s * np.random.poisson(mean, size=detector_photons.shape)
-			else:
-				# For large values, use Gaussian noise
-				detector_photons += s * np.random.normal(loc=mean, scale=np.sqrt(mean), size=detector_photons.shape)
+		# if s is not None:
+		# 	mean = np.abs(detector_photons) / s
+		# 	if mean.all() < 1000:
+		# 		detector_photons += s * np.random.poisson(mean, size=detector_photons.shape)
+		# 	else:
+		# 		# For large values, use Gaussian noise
+		# 		detector_photons += s * np.random.normal(loc=mean, scale=np.sqrt(mean), size=detector_photons.shape)
 
 	# sum over energies
 	detector_photons = np.sum(detector_photons, axis=0)
 
-	# additive background noise modelled as Poisson noise with fixed mean
-	detector_photons += np.random.poisson(background_mean, size=samples)
+	# # additive background noise modelled as Poisson noise with fixed mean
+	# detector_photons += np.random.poisson(background_mean, size=samples)
 
 	# minimum detection is one photon
 	detector_photons = np.clip(detector_photons, 1, None)

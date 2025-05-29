@@ -1,0 +1,51 @@
+\begin{thebibliography}{1}
+
+\bibitem{https://doi.org/10.1118/1.4709599}
+Mehrsima Abdoli, Rudi A. J.~O. Dierckx, and Habib Zaidi.
+\newblock Metal artifact reduction strategies for improved attenuation
+  correction in hybrid pet/ct imaging.
+\newblock {\em Medical Physics}, 39(6Part1):3343--3360, 2012.
+
+\bibitem{JEZZARD2000425}
+Peter Jezzard.
+\newblock 26 - physical basis of spatial distortions in magnetic resonance
+  images.
+\newblock In ISAAC~N. BANKMAN, editor, {\em Handbook of Medical Imaging},
+  Biomedical Engineering, pages 425--438. Academic Press, San Diego, 2000.
+
+\bibitem{KRAMAR19992467}
+Utz Kramar.
+\newblock X-ray fluorescence spectrometers.
+\newblock In John~C. Lindon, editor, {\em Encyclopedia of Spectroscopy and
+  Spectrometry}, pages 2467--2477. Elsevier, Oxford, 1999.
+
+\bibitem{Lyra_Ploussi_2011}
+Maria Lyra and Agapi Ploussi.
+\newblock Filtering in spect image reconstruction.
+\newblock {\em International Journal of Biomedical Imaging}, 2011:1–14, Jun
+  2011.
+
+\bibitem{Seibert3}
+J.~Anthony Seibert and John~M. Boone.
+\newblock X-ray imaging physics for nuclear medicine technologists. part 2:
+  X-ray interactions and image formation.
+\newblock {\em Journal of Nuclear Medicine Technology}, 33(1):3--18, 2005.
+
+\bibitem{Suetens_2009}
+Paul Suetens.
+\newblock {\em Radiography}, page 14–32.
+\newblock Cambridge University Press, 2009.
+
+\bibitem{6940329}
+Gengsheng~L. Zeng.
+\newblock Revisit of the ramp filter.
+\newblock {\em IEEE Transactions on Nuclear Science}, 62(1):131--136, 2015.
+
+\bibitem{transition}
+Harvey~A. Ziessman, Janis~P. O'Malley, and James~H. Thrall.
+\newblock Chapter 2 - physics of nuclear medicine.
+\newblock In Harvey~A. Ziessman, Janis~P. O'Malley, and James~H. Thrall,
+  editors, {\em Nuclear Medicine (Third Edition)}, The Requisites in Radiology,
+  pages 20--33. Mosby, Philadelphia, third edition edition, 2006.
+
+\end{thebibliography}

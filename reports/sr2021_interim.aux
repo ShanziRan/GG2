@@ -1,0 +1,73 @@
+\relax 
+\citation{KRAMAR19992467}
+\citation{transition}
+\citation{Seibert3}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}X-ray Generation, Scattering, and Detection}{1}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Fundamental properties of X-rays}{1}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Material Linear Attenuation Coefficient}{1}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Linear attenuation coefficient $\mu $ against X-ray energy for various materials}}{1}{}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:mu}{{1}{1}{Material Linear Attenuation Coefficient}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Simulating X-ray Attenuation}{1}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Simulated X-ray attenuation for different materials and different sources at 100 keV, where \textit  {Real} is 100kVp source with 2mm Aluminium filter that has polychromatic spikes due to bremsstrahlung, \textit  {Fake} is source generated using \texttt  {fake\_source}, and \textit  {Fake(ideal)} is single-energy fake source.}}{1}{}\protected@file@percent }
+\newlabel{fig:attenuation}{{2}{1}{Simulating X-ray Attenuation}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}CT Scanning and Sinogram}{1}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Simulating CT Scanning}{1}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Sinogram for Different Phantom Shapes}{1}{}\protected@file@percent }
+\citation{Lyra_Ploussi_2011}
+\citation{6940329}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Sinograms for various phantom shapes, which is a 2D dataset of $p(r, \theta )$ stacked for each angle scanned. (a)Disk phantom. (b)Point attenuator at the centre of the scan. (c)Point attenuator off-centre. (Linear interpolation, with small discontinuities marked) (d)Point attenuator at centre with nearest-neighbour interpolation. (discontinuity marked)(e)Point attenuator off-centre with cubic interpolation.}}{2}{}\protected@file@percent }
+\newlabel{fig:sinogram_shapes}{{3}{2}{Sinogram for Different Phantom Shapes}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Number of Angles}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Interpolation Methods}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Sinogram Calibration}{2}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Sinograms of the bilateral hip replacement scan (a)before and (b)after calibration using air attenuation.}}{2}{}\protected@file@percent }
+\newlabel{fig:sinogram_calibration}{{4}{2}{Sinogram Calibration}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Reconstructing Cross-sectional Data}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Fundamentals of Filtered Back-Projection (FBP)}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Ramp Filtering}{2}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Reconstructed disk phantom using FBP without and with ramp filter in (c), where filtering removes blurring artefacts.}}{2}{}\protected@file@percent }
+\newlabel{fig:filter_reconstruction}{{5}{2}{Ramp Filtering}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Impulse response of the Ram-Lak filter with and without raised cosine smoothing.}}{2}{}\protected@file@percent }
+\newlabel{fig:filter_impulse}{{6}{2}{Ramp Filtering}{}{}}
+\citation{JEZZARD2000425}
+\citation{Suetens_2009}
+\citation{Suetens_2009}
+\citation{https://doi.org/10.1118/1.4709599}
+\@writefile{toc}{\contentsline {paragraph}{Impulse Response of Ramp Filter}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Simulating CT Reconstruction}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Number of Angles}{3}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Reconstructed disk phantom with different number of angles. (a) 128 angles, (b) 320 angles, (c) 160 angles with order $\alpha =2$ raised cosine filter, (d) nearest-neighbour interpolation in FBP, (e) cubic interpolation in FBP, and (f) nearest-neightbour interpolation with order $\alpha =2$ raised cosine.}}{3}{}\protected@file@percent }
+\newlabel{fig:angle}{{7}{3}{Number of Angles}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Interpolation Methods}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Raised-cosine Filter}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Refinement for Realistic CT Simulation}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Noise in CT Simulation}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.1}Three Types of Noise}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Statistical Noise}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Background Radiation}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Scatter Noise}{3}{}\protected@file@percent }
+\citation{KIM20133}
+\bibstyle{plain}
+\bibdata{ref}
+\bibcite{https://doi.org/10.1118/1.4709599}{1}
+\bibcite{JEZZARD2000425}{2}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.2}Noise and \texttt  {mas} X-ray Exposure}{4}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Reconstructed images of bilateral hip replacement phantom. (a) with low mAs value of 10, (b) with high mAs value of 10000, (c) with larger pixel size 0.3mm}}{4}{}\protected@file@percent }
+\newlabel{fig:noise_mas}{{8}{4}{Noise and \texttt  {mas} X-ray Exposure}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.3}Noise Compensation by Raised Cosine Filter}{4}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Reconstructed images of bilateral hip replacement phantom under low mAs setting (100). (a) with only Ram-Lak filter, (b) with $\alpha =3$ raised cosine filter.}}{4}{}\protected@file@percent }
+\newlabel{fig:noise_ramlak}{{9}{4}{Noise Compensation by Raised Cosine Filter}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Beam Hardening Correction}{4}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Beam hardening artefact in a slice of the reconstructed image of disk phantom before and after correction.}}{4}{}\protected@file@percent }
+\newlabel{fig:beam_hardening}{{10}{4}{Beam Hardening Correction}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Hounsfield Units (HU) Conversion}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{4}{}\protected@file@percent }
+\bibcite{KRAMAR19992467}{3}
+\bibcite{Lyra_Ploussi_2011}{4}
+\bibcite{Seibert3}{5}
+\bibcite{Suetens_2009}{6}
+\bibcite{6940329}{7}
+\bibcite{transition}{8}
+\gdef \@abspage@last{5}

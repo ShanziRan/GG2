@@ -111,7 +111,12 @@ def ct_phantom(names, n, type, metal=None):
 			angles = angles[angles < (math.pi * 2)]
 			for a in angles:
 				x[int(round(n / 2 + r * math. cos(a)))][int(round(n / 2 + r * math.sin(a)))] = nmetal
-		
+
+	elif type == 9:
+		# impulse for looking at resolution
+		x = np.zeros((n, n))
+		x[int(n / 4)][int(n / 4)] = tissue # point impulse at different location
+
 	else:
 		
 		# This creates a generic human hip cross-section

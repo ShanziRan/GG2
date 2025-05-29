@@ -152,7 +152,7 @@ def test_noise_ramlak():
 	p = ct_phantom(material.name, 256, 4)
 	s = fake_source(source.mev, 0.1, material.coeff('Aluminium'), 2)
 
-	mas = 50
+	mas = 100
 	scale = 0.1
 	angles = 256
 	background_mean = 0.001 * s.max()
@@ -166,11 +166,11 @@ def test_noise_ramlak():
 		scale=scale, 
 		angles=angles, 
 		mas=mas,
-		alpha=0.07, 
+		alpha=0.00001, 
 		background_mean=background_mean, 
 		scatter_fraction=scatter_fraction)
 
-	save_draw(y, 'results', 'test_noise_ramlak', caxis=[0., np.max(y)])
+	save_draw(y, 'results', 'test_noise_no_ramlak', caxis=[0., np.max(y)])
 	print("Pic saved for noise test with Ram-Lak filter!")
 
 test_noise_ramlak()
